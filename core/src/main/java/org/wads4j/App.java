@@ -1,4 +1,4 @@
-package org.mmmps.core;
+package org.wads4j;
 
 /**
  * Hello world!
