@@ -10,3 +10,13 @@
 
 ### More
 They will always use the same version
+
+
+
+
+# Development
+
+## Requirements
+
+* Java 8+
+* Maven 3.5+ 
