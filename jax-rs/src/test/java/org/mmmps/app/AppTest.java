@@ -1,4 +1,4 @@
-package org.wads4j.core;
+package org.mmmps.app;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

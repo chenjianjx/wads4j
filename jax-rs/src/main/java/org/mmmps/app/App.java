@@ -1,4 +1,4 @@
-package org.wads4j.jaxrs;
+package org.mmmps.app;
 
 /**
  * Hello world!
