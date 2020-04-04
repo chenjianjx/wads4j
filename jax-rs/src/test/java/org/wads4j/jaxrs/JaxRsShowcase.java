@@ -1,39 +1,44 @@
-package org.wads4j.springweb;
-
+package org.wads4j.jaxrs;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.junit.Test;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.wads4j.core.ResponseAo;
 
-import javax.annotation.Resource;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-public class SpringWebShowcase {
+public class JaxRsShowcase {
 
 
-    @RestController
-    public class SampleController {
+    public class SampleResource {
 
-        @Resource
-        SampleManager sampleManager;
 
-        @RequestMapping(value = "/something", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+        SampleManager sampleManager = getSampleManager();
+
+        private SampleManager getSampleManager() {
+            return new SampleManager();
+        }
+
+
+        @GET
+        @Path(value = "/something")
+        @Produces(MediaType.APPLICATION_JSON)
         @ApiOperation(value = "Get something")
         @ApiResponses(value = {
                 @ApiResponse(code = 200, message = "Success", response = SampleResultAo.class),
                 @ApiResponse(code = 404, message = "Record not found")
         })
-        public ResponseEntity getSomething() {
+        public Response getSomething() {
             SampleUserAo currentUser = getCurrentUser();
             ResponseAo<SampleResultAo> appResponse = sampleManager.getSomething(currentUser);
-            return SpringWebResponseCreator.fromAppResponse(appResponse);
+            return JaxRsResponseCreator.fromAppResponse(appResponse);
         }
+
 
         private SampleUserAo getCurrentUser() {
             return new SampleUserAo();

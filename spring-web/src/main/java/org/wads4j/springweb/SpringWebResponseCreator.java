@@ -6,7 +6,7 @@ import org.wads4j.core.ErrorResultAo;
 import org.wads4j.core.ResponseAo;
 
 
-public class SpringWebRestUtils {
+public class SpringWebResponseCreator {
 
     /**
      * convert api response data-structure to spring rest's response
@@ -14,19 +14,19 @@ public class SpringWebRestUtils {
      * @return
      */
     @SuppressWarnings("rawtypes")
-    public static <SUCCESS_TYPE> ResponseEntity fromAppResponse(ResponseAo<SUCCESS_TYPE> apiResponse) {
-        if (apiResponse == null) {
+    public static <SUCCESS_TYPE> ResponseEntity fromAppResponse(ResponseAo<SUCCESS_TYPE> appResponse) {
+        if (appResponse == null) {
             return null;
         }
-        if (apiResponse.isSuccessful()) {
-            SUCCESS_TYPE successResult = apiResponse.getSuccessResult();
+        if (appResponse.isSuccessful()) {
+            SUCCESS_TYPE successResult = appResponse.getSuccessResult();
             if (successResult == null) {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
             } else {
                 return ResponseEntity.status(HttpStatus.OK).body(successResult);
             }
         } else {
-            ErrorResultAo error = apiResponse.getErrorResult();
+            ErrorResultAo error = appResponse.getErrorResult();
             return ResponseEntity.status(error.getErrorCode().getHttpCode()).body(error);
         }
     }
