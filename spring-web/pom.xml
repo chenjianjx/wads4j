@@ -10,15 +10,29 @@
         <version>${revision}</version>
     </parent>
 
-
     <artifactId>wads4j-spring-web</artifactId>
-
 
 
     <dependencies>
         <dependency>
+            <groupId>org.wads4j</groupId>
+            <artifactId>wads4j-core</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

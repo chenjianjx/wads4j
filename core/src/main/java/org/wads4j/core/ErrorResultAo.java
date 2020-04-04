@@ -1,4 +1,4 @@
-package org.wads4j;
+package org.wads4j.core;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
@@ -12,11 +12,11 @@ import java.util.Map;
 
 
 /**
- * the error object for errors. Its error fields are compatible
- * with OAuth2 fields (e.g. "error" and "error_description")
+ * the error object for errors. Its error fields are compatible with OAuth2 fields (e.g. "error" and "error_description").
+ * For its usage see {@link ResponseAo}
  */
 @ApiModel("ErrorResult")
-public class ApiErrorResult {
+public class ErrorResultAo {
 
     public static final String OAUTH2_ERROR_CODE_FN = "error";
 
@@ -35,7 +35,7 @@ public class ApiErrorResult {
 
     @ApiModelProperty(name = OAUTH2_ERROR_CODE_FN, required = false, value = "Error code. Compatible with OAuth2")
     @JsonProperty(OAUTH2_ERROR_CODE_FN)
-    private ApiErrorCode errorCode;
+    private ErrorCodeAo errorCode;
 
     @ApiModelProperty(name = OAUTH2_ERROR_DESC_FN, required = false, value = "Error message for client developers to read. Not for users. Compatible with OAuth2")
     @JsonProperty(OAUTH2_ERROR_DESC_FN)
@@ -58,11 +58,11 @@ public class ApiErrorResult {
     @JsonProperty(SUB_ERROR_CODE_FN)
     private String subErrorCode;
 
-    public ApiErrorCode getErrorCode() {
+    public ErrorCodeAo getErrorCode() {
         return errorCode;
     }
 
-    public void setErrorCode(ApiErrorCode error) {
+    public void setErrorCode(ErrorCodeAo error) {
         this.errorCode = error;
     }
 

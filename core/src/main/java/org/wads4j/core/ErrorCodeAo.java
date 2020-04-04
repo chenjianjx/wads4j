@@ -1,6 +1,9 @@
-package org.wads4j;
+package org.wads4j.core;
 
-public enum ApiErrorCode {
+/**
+ * See {@link ErrorResultAo}
+ */
+public enum ErrorCodeAo {
     /*OAUTH2 compatible error codes begin. See https://tools.ietf.org/html/rfc6750#page-9*/
     invalid_request(400),
     invalid_token(401),
@@ -14,7 +17,7 @@ public enum ApiErrorCode {
 
     private int httpCode;
 
-    ApiErrorCode(int httpCode) {
+    ErrorCodeAo(int httpCode) {
         this.httpCode = httpCode;
     }
 

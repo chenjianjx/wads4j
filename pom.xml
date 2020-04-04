@@ -30,6 +30,13 @@
         <dependencies>
 
             <dependency>
+                <groupId>org.wads4j</groupId>
+                <artifactId>wads4j-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+
+            <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.9</version>
@@ -54,6 +61,13 @@
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-annotations</artifactId>
                 <version>1.5.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>5.2.5.RELEASE</version>
                 <scope>provided</scope>
             </dependency>
         </dependencies>

@@ -1,4 +1,4 @@
-package org.wads4j;
+package org.wads4j.core;
 
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -8,12 +8,13 @@ import java.util.Map;
 
 
 /**
- * This will be the return method type of an api method. It includes either a success result, or an error result
+ * This will be the return method type of a app-layer method. It includes either a success result, or an error result.
+ * Ao = Application-layer object.
  * @param <T> The type of the success result
  */
-public class ApiResponse<T> {
+public class ResponseAo<T> {
 
-    private ApiErrorResult errorResult;
+    private ErrorResultAo errorResult;
 
     private T successResult;
 
@@ -29,23 +30,23 @@ public class ApiResponse<T> {
         return errorResult == null;
     }
 
-    public ApiErrorResult getErrorResult() {
+    public ErrorResultAo getErrorResult() {
         return errorResult;
     }
 
-    public void setErrorResult(ApiErrorResult errorResult) {
+    public void setErrorResult(ErrorResultAo errorResult) {
         this.errorResult = errorResult;
     }
 
-    public static <T> ApiResponse<T> success(T successResult) {
-        ApiResponse<T> r = new ApiResponse<T>();
+    public static <T> ResponseAo<T> success(T successResult) {
+        ResponseAo<T> r = new ResponseAo<T>();
         r.setSuccessResult(successResult);
         return r;
     }
 
-    public static <T> ApiResponse<T> devErrResponse(ApiErrorCode errorCode, String devErrMsg, String exceptionId) {
-        ApiResponse<T> response = new ApiResponse<T>();
-        ApiErrorResult err = new ApiErrorResult();
+    public static <T> ResponseAo<T> devErrResponse(ErrorCodeAo errorCode, String devErrMsg, String exceptionId) {
+        ResponseAo<T> response = new ResponseAo<T>();
+        ErrorResultAo err = new ErrorResultAo();
         err.setErrorCode(errorCode);
         err.setDevErrMsg(devErrMsg);
         err.setExceptionId(exceptionId);
@@ -54,14 +55,14 @@ public class ApiResponse<T> {
     }
 
 
-    public static <T> ApiResponse<T> devErrResponse(ApiErrorCode errorCode, String devErrMsg) {
+    public static <T> ResponseAo<T> devErrResponse(ErrorCodeAo errorCode, String devErrMsg) {
         return devErrResponse(errorCode, devErrMsg, null);
     }
 
 
-    public static <T> ApiResponse<T> userErrResponse(ApiErrorCode errorCode, String nonFieldUserError, Map<String, String> fieldUserErrors) {
-        ApiResponse<T> response = new ApiResponse<T>();
-        ApiErrorResult err = new ApiErrorResult();
+    public static <T> ResponseAo<T> userErrResponse(ErrorCodeAo errorCode, String nonFieldUserError, Map<String, String> fieldUserErrors) {
+        ResponseAo<T> response = new ResponseAo<T>();
+        ErrorResultAo err = new ErrorResultAo();
         err.setErrorCode(errorCode);
         err.setNonFieldUserError(nonFieldUserError);
         err.setFieldUserErrors(fieldUserErrors);
@@ -69,9 +70,9 @@ public class ApiResponse<T> {
         return response;
     }
 
-    public static <T> ApiResponse<T> errResponseWithSubErrorCode(ApiErrorCode errorCode, String subErrorCode) {
-        ApiResponse<T> response = new ApiResponse<T>();
-        ApiErrorResult err = new ApiErrorResult();
+    public static <T> ResponseAo<T> errResponseWithSubErrorCode(ErrorCodeAo errorCode, String subErrorCode) {
+        ResponseAo<T> response = new ResponseAo<T>();
+        ErrorResultAo err = new ErrorResultAo();
         err.setErrorCode(errorCode);
         err.setSubErrorCode(subErrorCode);
         response.setErrorResult(err);
