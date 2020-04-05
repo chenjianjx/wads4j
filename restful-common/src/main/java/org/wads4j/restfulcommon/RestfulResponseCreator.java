@@ -42,7 +42,7 @@ public class RestfulResponseCreator {
             ErrorResultAo error = appResponse.getErrorResult();
             ErrorCodeAo errorCode = error.getErrorCode();
 
-            if (errorCode == ErrorCodeAo.invalid_token || errorCode == ErrorCodeAo.insufficient_scope) {
+            if (ErrorCodeAo.EC_INVALID_TOKEN.getHttpCode() == errorCode.getHttpCode() || ErrorCodeAo.EC_INSUFFICIENT_SCOPE.getHttpCode() == errorCode.getHttpCode()) {
                 return buildOAuth2ErrorResponse(appResponse);
             } else {
                 RestfulResponse restfulResponse = new RestfulResponse();
@@ -60,7 +60,7 @@ public class RestfulResponseCreator {
             ErrorCodeAo errorCode = appResponse.getErrorResult().getErrorCode();
             OAuthResponse oltuResponse = OAuthRSResponse
                     .errorResponse(errorCode.getHttpCode())
-                    .setError(errorCode.name())
+                    .setError(errorCode.getCodeName())
                     .setErrorDescription(appResponse.getErrorResult().getDevErrMsg())
                     .buildHeaderMessage();
 
