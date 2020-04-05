@@ -1,16 +1,23 @@
 # wads4j
 
-The basic data structures for web api responses.  Features: 
+**wads4j** provides basic data structures for web api responses.  
 
-* They are **POJOs on App Layer**, **unit-testable** without involving restful frameworks, and **reusable outside of restful** apis. 
-* Error responses are **compatible with OAuth2** response data structure (e.g. error, error_description)
-* Out-of-box support of Spring Rest (e.g. Spring Boot) and JAX-RS (e.g. Jersey),  with auth errors converted to OAuth2 http responses (401, WWW-Authenticate headers, etc.)
+Features: 
+
+* They are **POJOs on App Layer** 
+  * **unit-testable** without involving restful frameworks
+  * **reusable outside of restful** framework 
+* Error responses are **compatible with OAuth2** response data structure (e.g. error, error_description fields)
+* They can be easily converted to response objects restful frameworks needed. 
+  * Out-of-box support for Spring Rest (e.g. Spring Boot) 
+  * Out-of-box support for JAX-RS (e.g. Jersey)
+  * During conversion, auth errors are turned into OAuth2 http responses (401, WWW-Authenticate headers, etc.)
   
 
 # Prerequisites
 Java 8+
-
-# Example
+ 
+# Example of Usage
 
 ```java
 
@@ -22,10 +29,18 @@ public class SampleManager {
   
     public ResponseAo<SampleResultAo> getSomethingProtected(SampleUserAo currentUser) {
         if (currentUser == null) {
-            return ResponseAo.devErrResponse(ErrorCodes.INVALID_TOKEN, "User has logged out");
+            //error for frontend developers
+            return ResponseAo.devErrResponse(ErrorCodes.INVALID_TOKEN, "User has logged out"); 
         }
         return ResponseAo.success(new SampleResultAo());
     }
+
+
+    public ResponseAo<Void> doThingsNotAllowed(SampleUserAo currentUser) {
+        //error for end users
+        return ResponseAo.userErrResponse(ErrorCodes.INSUFFICIENT_SCOPE, "No permission", null);
+    }
+
 }
 
 //Your own result class for successful response
@@ -34,11 +49,23 @@ public class SampleResultAo {
 }
 ```
 
+```java
+        if (appResponse.isSuccessful()) {
+            SUCCESS_RESULT successResult = appResponse.getSuccessResult();
+            ...
+        } else {
+            ErrorResultAo error = appResponse.getErrorResult();
+            String errorCode = error.getErrorCode();
+            ...
+        }
+
+```
+
 
 # Use with Spring Rest (e.g. Spring Boot)
 
 
-```$xml
+```xml
         <dependency>
             <groupId>org.wads4j</groupId>
             <artifactId>wads4j-spring-web</artifactId>
@@ -47,7 +74,7 @@ public class SampleResultAo {
 ```
 
 
-```$java
+```java
 
  
 @RestController
@@ -70,7 +97,7 @@ public class SomeController {
 
 # Use with JAX-RS (e.g. Jersey)
 
-```$xml
+```xml
         <dependency>
             <groupId>org.wads4j</groupId>
             <artifactId>wads4j-jax-rs</artifactId>
@@ -78,7 +105,7 @@ public class SomeController {
         </dependency>
 ```
 
-```$xml
+```java
 
 public class SomeResource {
 
