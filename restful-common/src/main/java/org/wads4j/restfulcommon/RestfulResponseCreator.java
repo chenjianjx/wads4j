@@ -65,6 +65,7 @@ public class RestfulResponseCreator {
                     .buildHeaderMessage();
 
             RestfulResponse restfulResponse = fromOltuResponse(oltuResponse);
+            restfulResponse.setBodyEntity(appResponse.getErrorResult()); //also set the errors in the body so the client side doesn't have to parse the header
             return restfulResponse;
         } catch (OAuthSystemException e) {
             throw new RuntimeException(e);
@@ -74,7 +75,6 @@ public class RestfulResponseCreator {
 
     protected RestfulResponse fromOltuResponse(OAuthResponse oltuResponse) {
         RestfulResponse restfulResponse = new RestfulResponse();
-        restfulResponse.setBodyEntity(null);
         restfulResponse.getHeader().put(OAuth.HeaderType.WWW_AUTHENTICATE, oltuResponse.getHeader(OAuth.HeaderType.WWW_AUTHENTICATE));
         restfulResponse.setStatusCode(oltuResponse.getResponseStatus());
         return restfulResponse;
