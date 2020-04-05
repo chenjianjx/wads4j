@@ -6,16 +6,52 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- parent pom -->
-    <groupId>org.wads4j</groupId>
+    <groupId>com.github.chenjianjx.wads4j</groupId>
     <artifactId>wads4j-parent</artifactId>
     <packaging>pom</packaging>
     <version>${revision}</version>
+    <name>Web Api Data Structure for Java</name>
+    <description>Web Api Data Structure for Java</description>
+    <url>https://github.com/chenjianjx/wads4j</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jackson.version>2.10.3</jackson.version>
-        <revision>1.0.0</revision>
+        <revision>1.0.0-SNAPSHOT</revision>
     </properties>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+
+    <developers>
+        <developer>
+            <name>Jian Chen</name>
+            <email>chenjianjx@gmail.com</email>
+            <organizationUrl>http://www.chenjianjx.com</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://github.com/chenjianjx/wads4j.git</connection>
+        <developerConnection>scm:git:ssh://github.com:chenjianjx/wads4j.git</developerConnection>
+        <url>https://github.com/chenjianjx/wads4j</url>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <!-- sub modules -->
     <modules>
@@ -32,14 +68,14 @@
         <dependencies>
 
             <dependency>
-                <groupId>org.wads4j</groupId>
+                <groupId>com.github.chenjianjx.wads4j</groupId>
                 <artifactId>wads4j-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
 
             <dependency>
-                <groupId>org.wads4j</groupId>
+                <groupId>com.github.chenjianjx.wads4j</groupId>
                 <artifactId>wads4j-restful-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -160,6 +196,7 @@
                         <target>1.8</target>
                     </configuration>
                 </plugin>
+
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.22.1</version>
@@ -195,6 +232,21 @@
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <additionalparam>-Xdoclint:none</additionalparam>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

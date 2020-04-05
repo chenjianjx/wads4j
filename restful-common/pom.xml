@@ -6,7 +6,7 @@
 
 
     <parent>
-        <groupId>org.wads4j</groupId>
+        <groupId>com.github.chenjianjx.wads4j</groupId>
         <artifactId>wads4j-parent</artifactId>
         <version>${revision}</version>
     </parent>
@@ -16,7 +16,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.wads4j</groupId>
+            <groupId>com.github.chenjianjx.wads4j</groupId>
             <artifactId>wads4j-core</artifactId>
         </dependency>
         <dependency>
