@@ -9,12 +9,12 @@
     <groupId>org.wads4j</groupId>
     <artifactId>wads4j-parent</artifactId>
     <packaging>pom</packaging>
-    <version>${revision}</version>
+    <version>${project.version}</version>
 
     <properties>
-        <revision>1.0.0-SNAPSHOT</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jackson.version>2.10.3</jackson.version>
+        <project.version>1.0.0-SNAPSHOT</project.version>
     </properties>
 
     <!-- sub modules -->
@@ -34,14 +34,14 @@
             <dependency>
                 <groupId>org.wads4j</groupId>
                 <artifactId>wads4j-core</artifactId>
-                <version>${revision}</version>
+                <version>${project.version}</version>
             </dependency>
 
 
             <dependency>
                 <groupId>org.wads4j</groupId>
                 <artifactId>wads4j-restful-common</artifactId>
-                <version>${revision}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
