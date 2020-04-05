@@ -18,11 +18,8 @@ public class JaxRsShowcase {
     public class SampleResource {
 
 
-        SampleManager sampleManager = getSampleManager();
-
-        private SampleManager getSampleManager() {
-            return new SampleManager();
-        }
+        SampleManager sampleManager = new SampleManager();
+        JaxRsResponseCreator responseCreator = new JaxRsResponseCreator();
 
 
         @GET
@@ -36,13 +33,14 @@ public class JaxRsShowcase {
         public Response getSomething() {
             SampleUserAo currentUser = getCurrentUser();
             ResponseAo<SampleResultAo> appResponse = sampleManager.getSomething(currentUser);
-            return JaxRsResponseCreator.fromAppResponse(appResponse);
+            return responseCreator.fromAppResponse(appResponse).build();
         }
 
 
         private SampleUserAo getCurrentUser() {
             return new SampleUserAo();
         }
+
     }
 
     public static class SampleManager {

@@ -10,19 +10,19 @@ import java.util.Map;
 /**
  * This will be the return method type of a app-layer method. It includes either a success result, or an error result.
  * Ao = Application-layer object.
- * @param <T> The type of the success result
+ * @param <SUCCESS_RESULT> The type of the success result
  */
-public class ResponseAo<T> {
+public class ResponseAo<SUCCESS_RESULT> {
 
     private ErrorResultAo errorResult;
 
-    private T successResult;
+    private SUCCESS_RESULT successResult;
 
-    public T getSuccessResult() {
+    public SUCCESS_RESULT getSuccessResult() {
         return successResult;
     }
 
-    public void setSuccessResult(T successResult) {
+    public void setSuccessResult(SUCCESS_RESULT successResult) {
         this.successResult = successResult;
     }
 
@@ -38,14 +38,14 @@ public class ResponseAo<T> {
         this.errorResult = errorResult;
     }
 
-    public static <T> ResponseAo<T> success(T successResult) {
-        ResponseAo<T> r = new ResponseAo<T>();
+    public static <SUCCESS_RESULT> ResponseAo<SUCCESS_RESULT> success(SUCCESS_RESULT successResult) {
+        ResponseAo<SUCCESS_RESULT> r = new ResponseAo<SUCCESS_RESULT>();
         r.setSuccessResult(successResult);
         return r;
     }
 
-    public static <T> ResponseAo<T> devErrResponse(ErrorCodeAo errorCode, String devErrMsg, String exceptionId) {
-        ResponseAo<T> response = new ResponseAo<T>();
+    public static <SUCCESS_RESULT> ResponseAo<SUCCESS_RESULT> devErrResponse(ErrorCodeAo errorCode, String devErrMsg, String exceptionId) {
+        ResponseAo<SUCCESS_RESULT> response = new ResponseAo<SUCCESS_RESULT>();
         ErrorResultAo err = new ErrorResultAo();
         err.setErrorCode(errorCode);
         err.setDevErrMsg(devErrMsg);
@@ -55,13 +55,13 @@ public class ResponseAo<T> {
     }
 
 
-    public static <T> ResponseAo<T> devErrResponse(ErrorCodeAo errorCode, String devErrMsg) {
+    public static <SUCCESS_RESULT> ResponseAo<SUCCESS_RESULT> devErrResponse(ErrorCodeAo errorCode, String devErrMsg) {
         return devErrResponse(errorCode, devErrMsg, null);
     }
 
 
-    public static <T> ResponseAo<T> userErrResponse(ErrorCodeAo errorCode, String nonFieldUserError, Map<String, String> fieldUserErrors) {
-        ResponseAo<T> response = new ResponseAo<T>();
+    public static <SUCCESS_RESULT> ResponseAo<SUCCESS_RESULT> userErrResponse(ErrorCodeAo errorCode, String nonFieldUserError, Map<String, String> fieldUserErrors) {
+        ResponseAo<SUCCESS_RESULT> response = new ResponseAo<SUCCESS_RESULT>();
         ErrorResultAo err = new ErrorResultAo();
         err.setErrorCode(errorCode);
         err.setNonFieldUserError(nonFieldUserError);
@@ -70,8 +70,8 @@ public class ResponseAo<T> {
         return response;
     }
 
-    public static <T> ResponseAo<T> errResponseWithSubErrorCode(ErrorCodeAo errorCode, String subErrorCode) {
-        ResponseAo<T> response = new ResponseAo<T>();
+    public static <SUCCESS_RESULT> ResponseAo<SUCCESS_RESULT> errResponseWithSubErrorCode(ErrorCodeAo errorCode, String subErrorCode) {
+        ResponseAo<SUCCESS_RESULT> response = new ResponseAo<SUCCESS_RESULT>();
         ErrorResultAo err = new ErrorResultAo();
         err.setErrorCode(errorCode);
         err.setSubErrorCode(subErrorCode);

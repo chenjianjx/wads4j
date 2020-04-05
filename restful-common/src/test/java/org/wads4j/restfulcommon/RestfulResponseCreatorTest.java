@@ -20,7 +20,7 @@ public class RestfulResponseCreatorTest {
         ResponseAo<Void> responseAo = new ResponseAo<>();
         responseAo.setSuccessResult(null);
 
-        RestfulResponse restfulResponse = creator.createRestfulResponse(responseAo);
+        RestfulResponse restfulResponse = creator.fromAppResponse(responseAo);
         assertNull(restfulResponse.getBodyEntity());
         assertTrue(restfulResponse.getHeader().isEmpty());
         assertEquals(204, restfulResponse.getStatusCode());
@@ -33,7 +33,7 @@ public class RestfulResponseCreatorTest {
         ResponseAo<String> responseAo = new ResponseAo<>();
         responseAo.setSuccessResult("welcome!");
 
-        RestfulResponse restfulResponse = creator.createRestfulResponse(responseAo);
+        RestfulResponse restfulResponse = creator.fromAppResponse(responseAo);
         assertEquals("welcome!", restfulResponse.getBodyEntity());
         assertTrue(restfulResponse.getHeader().isEmpty());
         assertEquals(200, restfulResponse.getStatusCode());
@@ -51,7 +51,7 @@ public class RestfulResponseCreatorTest {
 
         responseAo.setErrorResult(errorResult);
 
-        RestfulResponse restfulResponse = creator.createRestfulResponse(responseAo);
+        RestfulResponse restfulResponse = creator.fromAppResponse(responseAo);
         assertNull(restfulResponse.getBodyEntity());
         assertEquals(1, restfulResponse.getHeader().size());
         assertEquals("Bearer error_description=\"Not authenticated\",error=\"invalid_token\"", restfulResponse.getHeader().get("WWW-Authenticate"));
@@ -71,7 +71,7 @@ public class RestfulResponseCreatorTest {
 
         responseAo.setErrorResult(errorResult);
 
-        RestfulResponse restfulResponse = creator.createRestfulResponse(responseAo);
+        RestfulResponse restfulResponse = creator.fromAppResponse(responseAo);
         assertNull(restfulResponse.getBodyEntity());
         assertEquals(1, restfulResponse.getHeader().size());
         assertEquals("Bearer error_description=\"No permission\",error=\"insufficient_scope\"", restfulResponse.getHeader().get("WWW-Authenticate"));

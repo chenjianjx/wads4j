@@ -1,33 +1,41 @@
 package org.wads4j.jaxrs;
 
-import org.wads4j.core.ErrorResultAo;
 import org.wads4j.core.ResponseAo;
+import org.wads4j.restfulcommon.RestfulResponse;
+import org.wads4j.restfulcommon.RestfulResponseCreator;
 
 import javax.ws.rs.core.Response;
 
 public class JaxRsResponseCreator {
 
+    private RestfulResponseCreator _restfulResponseCreator;
 
     /**
      * convert api response data-structure to jax-rs's response
      *
      * @return
      */
-    @SuppressWarnings("rawtypes")
-    public static <SUCCESS_TYPE> Response fromAppResponse(ResponseAo<SUCCESS_TYPE> appResponse) {
-        if (appResponse == null) {
-            return null;
+    public <SUCCESS_RESULT> Response.ResponseBuilder fromAppResponse(ResponseAo<SUCCESS_RESULT> appResponse) {
+        RestfulResponse restfulResponse = getRestfulResponseCreator().fromAppResponse(appResponse);
+        Response.ResponseBuilder rb = Response
+                .status(restfulResponse.getStatusCode())
+                .entity(restfulResponse.getBodyEntity());
+        restfulResponse.getHeader().entrySet().forEach(e -> rb.header(e.getKey(), e.getValue()));
+        return rb;
+    }
+
+    /**
+     * it has a  fallback. You don't have to call this
+     * @param restfulResponseCreator
+     */
+    public void setRestfulResponseCreator(RestfulResponseCreator restfulResponseCreator) {
+        this._restfulResponseCreator = restfulResponseCreator;
+    }
+
+    private RestfulResponseCreator getRestfulResponseCreator() {
+        if (_restfulResponseCreator == null) {
+            _restfulResponseCreator = new RestfulResponseCreator();
         }
-        if (appResponse.isSuccessful()) {
-            SUCCESS_TYPE successResult = appResponse.getSuccessResult();
-            if (successResult == null) {
-                return Response.status(Response.Status.NO_CONTENT).entity(null).build();
-            } else {
-                return Response.status(Response.Status.OK).entity(successResult).build();
-            }
-        } else {
-            ErrorResultAo error = appResponse.getErrorResult();
-            return Response.status(error.getErrorCode().getHttpCode()).entity(error).build();
-        }
+        return _restfulResponseCreator;
     }
 }

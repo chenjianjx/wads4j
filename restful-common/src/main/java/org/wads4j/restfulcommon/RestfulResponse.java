@@ -9,17 +9,20 @@ import java.util.Map;
 
 /**
  * a common response POJO, not specific to any restful framework
+ * Note:  Should not be used outside the framework unless you want to extend it
  */
+
+
 public class RestfulResponse {
 
-    private Map<String, String> header;
+    protected Map<String, String> header;
 
     /**
      * not body string
      */
-    private Object bodyEntity;
+    protected Object bodyEntity;
 
-    private int statusCode;
+    protected int statusCode;
 
     public Map<String, String> getHeader() {
         if(header == null){

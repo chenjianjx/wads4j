@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>org.wads4j</groupId>
-            <artifactId>wads4j-core</artifactId>
+            <artifactId>wads4j-restful-common</artifactId>
         </dependency>
 
         <dependency>

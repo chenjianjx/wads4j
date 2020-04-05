@@ -8,25 +8,24 @@ import org.wads4j.core.ErrorCodeAo;
 import org.wads4j.core.ErrorResultAo;
 import org.wads4j.core.ResponseAo;
 
-
+/**
+ * Should not be used outside the framework unless you want to extend it
+ */
 public class RestfulResponseCreator {
 
 
-    private static final int HTTP_CODE_NO_CONTENT = 204;
-    private static final int HTTP_CODE_OK = 200;
+    protected static final int HTTP_CODE_NO_CONTENT = 204;
+    protected static final int HTTP_CODE_OK = 200;
 
 
     /**
      * convert api response data-structure to a common restful response
      *
+     * @param appResponse      can not be null
+     * @param <SUCCESS_RESULT>
      * @return
      */
-    @SuppressWarnings("rawtypes")
-    public <SUCCESS_RESULT> RestfulResponse createRestfulResponse(ResponseAo<SUCCESS_RESULT> appResponse) {
-        if (appResponse == null) {
-            return null;
-        }
-
+    public <SUCCESS_RESULT> RestfulResponse fromAppResponse(ResponseAo<SUCCESS_RESULT> appResponse) {
 
         if (appResponse.isSuccessful()) {
             RestfulResponse restfulResponse = new RestfulResponse();
@@ -51,13 +50,11 @@ public class RestfulResponseCreator {
                 restfulResponse.setBodyEntity(error);
                 return restfulResponse;
             }
-
-
         }
     }
 
 
-    private <SUCCESS_RESULT> RestfulResponse buildOAuth2ErrorResponse(ResponseAo<SUCCESS_RESULT> appResponse) {
+    protected <SUCCESS_RESULT> RestfulResponse buildOAuth2ErrorResponse(ResponseAo<SUCCESS_RESULT> appResponse) {
         try {
 
             ErrorCodeAo errorCode = appResponse.getErrorResult().getErrorCode();
@@ -75,7 +72,7 @@ public class RestfulResponseCreator {
     }
 
 
-    private RestfulResponse fromOltuResponse(OAuthResponse oltuResponse) {
+    protected RestfulResponse fromOltuResponse(OAuthResponse oltuResponse) {
         RestfulResponse restfulResponse = new RestfulResponse();
         restfulResponse.setBodyEntity(null);
         restfulResponse.getHeader().put(OAuth.HeaderType.WWW_AUTHENTICATE, oltuResponse.getHeader(OAuth.HeaderType.WWW_AUTHENTICATE));

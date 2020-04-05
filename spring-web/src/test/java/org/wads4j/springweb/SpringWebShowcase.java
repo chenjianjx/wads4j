@@ -23,6 +23,9 @@ public class SpringWebShowcase {
         @Resource
         SampleManager sampleManager;
 
+        @Resource
+        SpringWebResponseCreator responseCreator;
+
         @RequestMapping(value = "/something", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
         @ApiOperation(value = "Get something")
         @ApiResponses(value = {
@@ -32,7 +35,7 @@ public class SpringWebShowcase {
         public ResponseEntity getSomething() {
             SampleUserAo currentUser = getCurrentUser();
             ResponseAo<SampleResultAo> appResponse = sampleManager.getSomething(currentUser);
-            return SpringWebResponseCreator.fromAppResponse(appResponse);
+            return responseCreator.fromAppResponse(appResponse);
         }
 
         private SampleUserAo getCurrentUser() {

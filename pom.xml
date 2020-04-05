@@ -38,6 +38,12 @@
 
 
             <dependency>
+                <groupId>org.wads4j</groupId>
+                <artifactId>wads4j-restful-common</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.9</version>
