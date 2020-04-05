@@ -17,7 +17,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jackson.version>2.10.3</jackson.version>
-        <revision>1.0.0-SNAPSHOT</revision>
+        <revision>1.1.0-SNAPSHOT</revision>
     </properties>
 
     <licenses>
@@ -70,14 +70,14 @@
             <dependency>
                 <groupId>com.github.chenjianjx.wads4j</groupId>
                 <artifactId>wads4j-core</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
 
 
             <dependency>
                 <groupId>com.github.chenjianjx.wads4j</groupId>
                 <artifactId>wads4j-restful-common</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
@@ -143,34 +143,6 @@
     <build>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
-
-
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>flatten-maven-plugin</artifactId>
-                    <version>1.2.2.</version>
-                    <configuration>
-                        <updatePomFile>true</updatePomFile>
-                        <flattenMode>resolveCiFriendliesOnly</flattenMode>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>flatten</id>
-                            <phase>process-resources</phase>
-                            <goals>
-                                <goal>flatten</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>flatten.clean</id>
-                            <phase>clean</phase>
-                            <goals>
-                                <goal>clean</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>3.1.0</version>
@@ -215,6 +187,35 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
 
@@ -244,9 +245,6 @@
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
-                                <configuration>
-                                    <additionalparam>-Xdoclint:none</additionalparam>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

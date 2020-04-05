@@ -67,7 +67,7 @@ public class SampleResultAo {
 
 ```xml
         <dependency>
-            <groupId>org.wads4j</groupId>
+            <groupId>com.github.chenjianjx.wads4j</groupId>
             <artifactId>wads4j-spring-web</artifactId>
             <version>1.0.0</version>
         </dependency>
@@ -99,7 +99,7 @@ public class SomeController {
 
 ```xml
         <dependency>
-            <groupId>org.wads4j</groupId>
+            <groupId>com.github.chenjianjx.wads4j</groupId>
             <artifactId>wads4j-jax-rs</artifactId>
             <version>1.0.0</version>
         </dependency>
@@ -130,7 +130,7 @@ If your app layer is an independent module from your restful layer, it should on
 ```xml
 
         <dependency>
-            <groupId>org.wads4j</groupId>
+            <groupId>com.github.chenjianjx.wads4j</groupId>
             <artifactId>wads4j-core</artifactId>
             <version>1.0.0</version>
         </dependency>
