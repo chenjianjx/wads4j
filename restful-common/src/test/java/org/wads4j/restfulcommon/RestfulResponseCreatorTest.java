@@ -2,7 +2,7 @@ package org.wads4j.restfulcommon;
 
 
 import org.junit.Test;
-import org.wads4j.core.ErrorCodeAo;
+import org.wads4j.core.ErrorCodes;
 import org.wads4j.core.ErrorResultAo;
 import org.wads4j.core.ResponseAo;
 
@@ -44,7 +44,7 @@ public class RestfulResponseCreatorTest {
     public void createRestfulResponse_401() {
 
         ErrorResultAo errorResult = new ErrorResultAo();
-        errorResult.setErrorCode(ErrorCodeAo.EC_INVALID_TOKEN);
+        errorResult.setErrorCode(ErrorCodes.INVALID_TOKEN);
         errorResult.setDevErrMsg("Not authenticated");
         ResponseAo<String> responseAo = new ResponseAo<>();
         responseAo.setErrorResult(errorResult);
@@ -57,7 +57,7 @@ public class RestfulResponseCreatorTest {
         assertEquals("Bearer error_description=\"Not authenticated\",error=\"invalid_token\"", restfulResponse.getHeader().get("WWW-Authenticate"));
 
 
-        assertEquals(ErrorCodeAo.EC_INVALID_TOKEN, ((ErrorResultAo) restfulResponse.getBodyEntity()).getErrorCode());
+        assertEquals(ErrorCodes.INVALID_TOKEN, ((ErrorResultAo) restfulResponse.getBodyEntity()).getErrorCode());
         assertEquals("Not authenticated", ((ErrorResultAo) restfulResponse.getBodyEntity()).getDevErrMsg());
 
         assertEquals(401, restfulResponse.getStatusCode());
@@ -69,7 +69,7 @@ public class RestfulResponseCreatorTest {
     public void createRestfulResponse_403() {
 
         ErrorResultAo errorResult = new ErrorResultAo();
-        errorResult.setErrorCode(ErrorCodeAo.EC_INSUFFICIENT_SCOPE);
+        errorResult.setErrorCode(ErrorCodes.INSUFFICIENT_SCOPE);
         errorResult.setDevErrMsg("No permission");
         ResponseAo<String> responseAo = new ResponseAo<>();
         responseAo.setErrorResult(errorResult);
@@ -82,7 +82,7 @@ public class RestfulResponseCreatorTest {
         assertEquals("Bearer error_description=\"No permission\",error=\"insufficient_scope\"", restfulResponse.getHeader().get("WWW-Authenticate"));
 
 
-        assertEquals(ErrorCodeAo.EC_INSUFFICIENT_SCOPE, ((ErrorResultAo) restfulResponse.getBodyEntity()).getErrorCode());
+        assertEquals(ErrorCodes.INSUFFICIENT_SCOPE, ((ErrorResultAo) restfulResponse.getBodyEntity()).getErrorCode());
         assertEquals("No permission", ((ErrorResultAo) restfulResponse.getBodyEntity()).getDevErrMsg());
 
         assertEquals(403, restfulResponse.getStatusCode());
@@ -94,7 +94,7 @@ public class RestfulResponseCreatorTest {
     public void createRestfulResponse_bizError() {
 
         ErrorResultAo errorResult = new ErrorResultAo();
-        errorResult.setErrorCode(ErrorCodeAo.EC_SERVER_ERROR);
+        errorResult.setErrorCode(ErrorCodes.SERVER_ERROR);
         errorResult.setDevErrMsg("Some thing strange");
         ResponseAo<String> responseAo = new ResponseAo<>();
         responseAo.setErrorResult(errorResult);
@@ -103,7 +103,7 @@ public class RestfulResponseCreatorTest {
 
         RestfulResponse restfulResponse = creator.fromAppResponse(responseAo);
 
-        assertEquals(ErrorCodeAo.EC_SERVER_ERROR, ((ErrorResultAo) restfulResponse.getBodyEntity()).getErrorCode());
+        assertEquals(ErrorCodes.SERVER_ERROR, ((ErrorResultAo) restfulResponse.getBodyEntity()).getErrorCode());
         assertEquals("Some thing strange", ((ErrorResultAo) restfulResponse.getBodyEntity()).getDevErrMsg());
         assertEquals(500, restfulResponse.getStatusCode());
 

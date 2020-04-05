@@ -35,7 +35,7 @@ public class ErrorResultAo {
 
     @ApiModelProperty(name = OAUTH2_ERROR_CODE_FN, required = false, value = "Error code. Compatible with OAuth2")
     @JsonProperty(OAUTH2_ERROR_CODE_FN)
-    private ErrorCodeAo errorCode;
+    private String errorCode;
 
     @ApiModelProperty(name = OAUTH2_ERROR_DESC_FN, required = false, value = "Error message for client developers to read. Not for users. Compatible with OAuth2")
     @JsonProperty(OAUTH2_ERROR_DESC_FN)
@@ -58,11 +58,11 @@ public class ErrorResultAo {
     @JsonProperty(SUB_ERROR_CODE_FN)
     private String subErrorCode;
 
-    public ErrorCodeAo getErrorCode() {
+    public String getErrorCode() {
         return errorCode;
     }
 
-    public void setErrorCode(ErrorCodeAo error) {
+    public void setErrorCode(String error) {
         this.errorCode = error;
     }
 

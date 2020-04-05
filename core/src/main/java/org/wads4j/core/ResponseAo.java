@@ -44,7 +44,7 @@ public class ResponseAo<SUCCESS_RESULT> {
         return r;
     }
 
-    public static <SUCCESS_RESULT> ResponseAo<SUCCESS_RESULT> devErrResponse(ErrorCodeAo errorCode, String devErrMsg, String exceptionId) {
+    public static <SUCCESS_RESULT> ResponseAo<SUCCESS_RESULT> devErrResponse(String errorCode, String devErrMsg, String exceptionId) {
         ResponseAo<SUCCESS_RESULT> response = new ResponseAo<SUCCESS_RESULT>();
         ErrorResultAo err = new ErrorResultAo();
         err.setErrorCode(errorCode);
@@ -55,12 +55,12 @@ public class ResponseAo<SUCCESS_RESULT> {
     }
 
 
-    public static <SUCCESS_RESULT> ResponseAo<SUCCESS_RESULT> devErrResponse(ErrorCodeAo errorCode, String devErrMsg) {
+    public static <SUCCESS_RESULT> ResponseAo<SUCCESS_RESULT> devErrResponse(String errorCode, String devErrMsg) {
         return devErrResponse(errorCode, devErrMsg, null);
     }
 
 
-    public static <SUCCESS_RESULT> ResponseAo<SUCCESS_RESULT> userErrResponse(ErrorCodeAo errorCode, String nonFieldUserError, Map<String, String> fieldUserErrors) {
+    public static <SUCCESS_RESULT> ResponseAo<SUCCESS_RESULT> userErrResponse(String errorCode, String nonFieldUserError, Map<String, String> fieldUserErrors) {
         ResponseAo<SUCCESS_RESULT> response = new ResponseAo<SUCCESS_RESULT>();
         ErrorResultAo err = new ErrorResultAo();
         err.setErrorCode(errorCode);
@@ -70,7 +70,7 @@ public class ResponseAo<SUCCESS_RESULT> {
         return response;
     }
 
-    public static <SUCCESS_RESULT> ResponseAo<SUCCESS_RESULT> errResponseWithSubErrorCode(ErrorCodeAo errorCode, String subErrorCode) {
+    public static <SUCCESS_RESULT> ResponseAo<SUCCESS_RESULT> errResponseWithSubErrorCode(String errorCode, String subErrorCode) {
         ResponseAo<SUCCESS_RESULT> response = new ResponseAo<SUCCESS_RESULT>();
         ErrorResultAo err = new ErrorResultAo();
         err.setErrorCode(errorCode);

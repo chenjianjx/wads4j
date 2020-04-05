@@ -4,9 +4,12 @@ import org.apache.oltu.oauth2.common.OAuth;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.apache.oltu.oauth2.common.message.OAuthResponse;
 import org.apache.oltu.oauth2.rs.response.OAuthRSResponse;
-import org.wads4j.core.ErrorCodeAo;
+import org.wads4j.core.ErrorCodes;
 import org.wads4j.core.ErrorResultAo;
 import org.wads4j.core.ResponseAo;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Should not be used outside the framework unless you want to extend it
@@ -16,6 +19,17 @@ public class RestfulResponseCreator {
 
     protected static final int HTTP_CODE_NO_CONTENT = 204;
     protected static final int HTTP_CODE_OK = 200;
+
+    private static Map<String, Integer> errorCode2HttpCodeMap = new LinkedHashMap<>();
+
+    static {
+        errorCode2HttpCodeMap.put(ErrorCodes.INVALID_REQUEST, 400);
+        errorCode2HttpCodeMap.put(ErrorCodes.INVALID_TOKEN, 401);
+        errorCode2HttpCodeMap.put(ErrorCodes.INSUFFICIENT_SCOPE, 403);
+        errorCode2HttpCodeMap.put(ErrorCodes.RECORD_NOT_FOUND, 404);
+        errorCode2HttpCodeMap.put(ErrorCodes.RECORD_ALREADY_EXISTS, 409);
+        errorCode2HttpCodeMap.put(ErrorCodes.SERVER_ERROR, 500);
+    }
 
 
     /**
@@ -40,13 +54,13 @@ public class RestfulResponseCreator {
             }
         } else {
             ErrorResultAo error = appResponse.getErrorResult();
-            ErrorCodeAo errorCode = error.getErrorCode();
+            String errorCode = error.getErrorCode();
 
-            if (ErrorCodeAo.EC_INVALID_TOKEN.getHttpCode() == errorCode.getHttpCode() || ErrorCodeAo.EC_INSUFFICIENT_SCOPE.getHttpCode() == errorCode.getHttpCode()) {
+            if (ErrorCodes.INVALID_TOKEN.equals(errorCode) || ErrorCodes.INSUFFICIENT_SCOPE.equals(errorCode)) {
                 return buildOAuth2ErrorResponse(appResponse);
             } else {
                 RestfulResponse restfulResponse = new RestfulResponse();
-                restfulResponse.setStatusCode(errorCode.getHttpCode());
+                restfulResponse.setStatusCode(getHttpCodeFromErrorCode(errorCode));
                 restfulResponse.setBodyEntity(error);
                 return restfulResponse;
             }
@@ -57,10 +71,10 @@ public class RestfulResponseCreator {
     protected <SUCCESS_RESULT> RestfulResponse buildOAuth2ErrorResponse(ResponseAo<SUCCESS_RESULT> appResponse) {
         try {
 
-            ErrorCodeAo errorCode = appResponse.getErrorResult().getErrorCode();
+            String errorCode = appResponse.getErrorResult().getErrorCode();
             OAuthResponse oltuResponse = OAuthRSResponse
-                    .errorResponse(errorCode.getHttpCode())
-                    .setError(errorCode.getCodeName())
+                    .errorResponse(getHttpCodeFromErrorCode(errorCode))
+                    .setError(errorCode)
                     .setErrorDescription(appResponse.getErrorResult().getDevErrMsg())
                     .buildHeaderMessage();
 
@@ -69,6 +83,22 @@ public class RestfulResponseCreator {
             return restfulResponse;
         } catch (OAuthSystemException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+
+    /**
+     * Overwrite this for your needs
+     *
+     * @param errorCode
+     * @return
+     */
+    protected int getHttpCodeFromErrorCode(String errorCode) {
+        Integer httpCode = errorCode2HttpCodeMap.get(errorCode);
+        if (httpCode != null) {
+            return httpCode;
+        } else {
+            return 500;
         }
     }
 
