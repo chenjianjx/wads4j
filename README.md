@@ -136,3 +136,8 @@ If your app layer is an independent module from your restful layer, it should on
         </dependency>
 
 ```
+
+
+# Appendix: development
+
+* Maven version should be >= 3.5.0 so that ${revision} can be used in pom files
