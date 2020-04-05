@@ -8,16 +8,16 @@ Features:
   * **unit-testable** without involving restful frameworks
   * **reusable outside of restful** framework 
 * Error responses are **compatible with OAuth2** response data structure (e.g. error, error_description fields)
-* They can be easily converted to response objects restful frameworks needed. 
-  * Out-of-box support for Spring Rest (e.g. Spring Boot) 
-  * Out-of-box support for JAX-RS (e.g. Jersey)
-  * During conversion, auth errors are turned into OAuth2 http responses (401, WWW-Authenticate headers, etc.)
+* They can be **converted to restful frameworks' objects**. 
+  * Out-of-box support for **Spring Rest** (e.g. Spring Boot) 
+  * Out-of-box support for **JAX-RS** (e.g. Jersey)
+  * During conversion, auth errors will turn into **OAuth2 http responses** (401, WWW-Authenticate headers, etc.)
   
 
 # Prerequisites
 Java 8+
  
-# Example of Usage
+# Example: use the data structures
 
 ```java
 
