@@ -6,7 +6,7 @@ Features:
 
 * They are **POJOs on App Layer** 
   * **unit-testable** without involving restful frameworks
-  * **reusable outside of restful frameworks** 
+  * **reusable** outside of restful frameworks 
 * Error responses are **compatible with OAuth2** response data structure (e.g. error, error_description fields)
 * They can be **converted to restful frameworks' objects**. 
   * Out-of-box support for **Spring Rest** (e.g. Spring Boot) 
